@@ -1,0 +1,1 @@
+<view class="tabber"><view data-event-opts="{{[['tap',[['wq',['$event']]]]]}}" bindtap="__e" class="_ul"><block wx:for="{{liData}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view data-event-opts="{{[['tap',[['wq',[index]]]]]}}" bindtap="__e" class="_li">{{item}}</view></block></view></view>

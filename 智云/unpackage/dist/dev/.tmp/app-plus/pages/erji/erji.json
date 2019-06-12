@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "二级",
+  "usingComponents": {
+    "tab-ber": "/pages/tabBer/tabBer"
+  }
+}
