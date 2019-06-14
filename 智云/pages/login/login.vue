@@ -1,9 +1,20 @@
 <template>
     <view class="content">
-        <view style="width: 30px;height: 30px;">
-            <text v-html="html"></text>
+        <view class="banner" @tap="jump">
+            <img src="/static/img/qq.png" alt="">
+			<p>李冰&emsp;361834094@qq.com</p>
         </view>
-        <view class="input-group">
+		<view>
+			<view>
+				<text>账号：</text>
+				<input type="text">
+			</view>
+			<view>
+				<text>密码：</text>
+				<input type="password">
+			</view>
+		</view>
+        <!-- <view class="input-group">
             <view class="input-row border">
                 <text class="title">账号：</text>
                 <m-input class="m-input" type="text" clearable focus v-model="account" placeholder="请输入账号"></m-input>
@@ -12,7 +23,7 @@
                 <text class="title">密码：</text>
                 <m-input type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
             </view>
-        </view>
+        </view> -->
         <view class="btn-row">
             <button type="primary" class="primary" @tap="bindLogin">登录</button>
         </view>
@@ -21,6 +32,22 @@
             <text>|</text>
             <navigator url="../pwd/pwd">忘记密码</navigator>
         </view>
+		<view class="tabber">
+			<ul>
+				<li @tap="jumpTab(0)">
+					<img src="/static/img/home.png" alt="">
+					<text>协同</text>
+				</li>
+				<li @tap="jumpTab(1)">
+					<img src="/static/img/home.png" alt="">
+					<text>营销</text>
+				</li>
+				<li>
+					<img src="/static/img/userHL.png" alt="">
+					<text style="color: #0FAEFF;">我的</text>
+				</li>
+			</ul>
+		</view>
         <!-- <view class="oauth-row" v-if="hasProvider" v-bind:style="{top: positionTop + 'px'}">
             <view class="oauth-image" v-for="provider in providerList" :key="provider.value">
                 <image :src="provider.image" @tap="oauth(provider.value)"></image>
@@ -53,7 +80,29 @@
         },
         computed: mapState(['forcedLogin', 'loginInfo']),
         methods: {
-            ...mapMutations(['login']),
+			...mapMutations(['login']),
+			jump() {
+				uni.setStorage({
+					key: 'hasLogin',
+					data: true
+				})
+				this.login();
+				uni.switchTab({
+					url: '../user/user'
+				})
+			},
+			jumpTab(index) {
+				console.log(index)
+				if (index) {
+					uni.switchTab({
+						url: '../pwd/pwd'
+					})
+				} else {
+					uni.switchTab({
+						url: '../main/main'
+					})
+				}
+			},
             initProvider() {
                 const filters = ['weixin', 'qq', 'sinaweibo'];
                 uni.getProvider({
@@ -193,6 +242,21 @@
 </script>
 
 <style>
+	.banner{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 400upx;
+		background: #0572ba;
+		color: #fff;
+	}
+	.banner>img{
+		width: 200upx;
+		height: 200upx;
+	}
     .action-row {
         display: flex;
         flex-direction: row;
@@ -228,4 +292,33 @@
         height: 60upx;
         margin: 20upx;
     }
+	
+	.tabber{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 120upx;
+	}
+	.tabber>ul{
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		height: 100%;
+		background: #fff;
+		border-top: 1upx solid #ccc;
+		font-size: 28upx;
+	}
+	.tabber>ul>li{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 33%;
+		height: 100%;
+	}
+	.tabber>ul>li>img{
+		width: 50upx;
+		height: 50upx;
+	}
 </style>

@@ -14,7 +14,7 @@
                 <img src="/static/img/qq.png" alt="">
             </view>
             <view class="sales-amount">
-                <p class="sales-amount-top">销售金额</p>
+                <p class="sales-amount-top" @tap="red">销售金额</p>
                 <ul class="sales-amount-bottom">
                 	<li class="sales-amount-bottom-1">
                         <p>￥32,009,00</p>
@@ -71,7 +71,13 @@
                 uni.navigateTo({
                     url: '/pages/erji/erji'
                 })
-            }
+            },
+			red() {
+				uni.setTabBarBadge({
+					index: 0,
+					text: '11'
+				})
+			}
         },
         onLoad() {
 //             if (!this.hasLogin) {

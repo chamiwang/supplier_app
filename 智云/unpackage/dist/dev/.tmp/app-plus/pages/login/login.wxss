@@ -1,54 +1,130 @@
 
+.banner{
+		position: relative;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		    -ms-flex-direction: column;
+		        flex-direction: column;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		    -ms-flex-pack: center;
+		        justify-content: center;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		    -ms-flex-align: center;
+		        align-items: center;
+		width: 100%;
+		height: 400rpx;
+		background: #0572ba;
+		color: #fff;
+}
+.banner>._img{
+		width: 200rpx;
+		height: 200rpx;
+}
 .action-row {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: row;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
 }
 .action-row navigator {
-    color: #007aff;
-    padding: 0 20rpx;
+        color: #007aff;
+        padding: 0 20rpx;
 }
 .oauth-row {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: row;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
 }
 .oauth-image {
-    width: 100rpx;
-    height: 100rpx;
-    border: 1rpx solid #dddddd;
-    -webkit-border-radius: 100rpx;
-            border-radius: 100rpx;
-    margin: 0 40rpx;
-    background-color: #ffffff;
+        width: 100rpx;
+        height: 100rpx;
+        border: 1rpx solid #dddddd;
+        -webkit-border-radius: 100rpx;
+                border-radius: 100rpx;
+        margin: 0 40rpx;
+        background-color: #ffffff;
 }
 .oauth-image image {
-    width: 60rpx;
-    height: 60rpx;
-    margin: 20rpx;
+        width: 60rpx;
+        height: 60rpx;
+        margin: 20rpx;
+}
+.tabber{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 120rpx;
+}
+.tabber>._ul{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: row;
+		    -ms-flex-direction: row;
+		        flex-direction: row;
+		width: 100%;
+		height: 100%;
+		background: #fff;
+		border-top: 1rpx solid #ccc;
+		font-size: 28rpx;
+}
+.tabber>._ul>._li{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		    -ms-flex-direction: column;
+		        flex-direction: column;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		    -ms-flex-pack: center;
+		        justify-content: center;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		    -ms-flex-align: center;
+		        align-items: center;
+		width: 33%;
+		height: 100%;
+}
+.tabber>._ul>._li>._img{
+		width: 50rpx;
+		height: 50rpx;
 }
 

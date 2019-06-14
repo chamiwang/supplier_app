@@ -1,6 +1,16 @@
 {
     "pages": [ //pages数组中第一项表示应用启动页,
-        {
+		{
+			"path": "pages/ordersShipment/ordersShipment",
+			"style": {
+				"navigationBarTitleText": "订单发货"
+			}
+		}, {
+			"path": "pages/confirmOrder/confirmOrder",
+			"style": {
+				"navigationBarTitleText": "确认订单"
+			}
+		}, {
             "path": "pages/main/main",
             "style": {
                 "navigationBarTitleText": "登录模板"
@@ -21,7 +31,7 @@
                 "navigationBarTitleText": "找回密码"
             }
         }, {
-            "path": "pages/user/user",
+            "path": "pages/login/login",
             "style": {
                 "navigationBarTitleText": "我的"
             }
@@ -44,6 +54,11 @@
             "path": "pages/sanji2/sanji2",
             "style": {
                 "navigationBarTitleText": "三级2"
+            }
+        }, {
+            "path": "pages/user/user",
+            "style": {
+                "navigationBarTitleText": "my的"
             }
         }
     ],
