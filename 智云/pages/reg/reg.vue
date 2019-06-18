@@ -1,20 +1,23 @@
 <template>
     <view class="content">
-        <view class="input-group">
-            <view class="input-row border">
-                <text class="title">账号：</text>
-                <m-input type="text" focus clearable v-model="account" placeholder="请输入账号"></m-input>
+        <view class="register">
+            <view>
+                <!-- <text class="title">账号：</text> -->
+				<input type="text" v-model="account" placeholder="请输入账号">
+                <!-- <m-input type="text" focus clearable v-model="account" placeholder="请输入账号"></m-input> -->
             </view>
-            <view class="input-row border">
-                <text class="title">密码：</text>
-                <m-input type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
+            <view>
+                <!-- <text class="title">密码：</text> -->
+				<input type="password" v-model="password" placeholder="请输入密码">
+                <!-- <m-input type="password" displayable v-model="password" placeholder="请输入密码"></m-input> -->
             </view>
-            <view class="input-row">
-                <text class="title">邮箱：</text>
-                <m-input type="text" clearable v-model="email" placeholder="请输入邮箱"></m-input>
+            <view>
+                <!-- <text class="title">邮箱：</text> -->
+				<input type="text" v-model="email" placeholder="请输入邮箱">
+                <!-- <m-input type="text" clearable v-model="email" placeholder="请输入邮箱"></m-input> -->
             </view>
         </view>
-        <view class="btn-row">
+        <view style="margin-top: 40upx;">
             <button type="primary" class="primary" @tap="register">注册</button>
         </view>
     </view>
@@ -81,5 +84,18 @@
 </script>
 
 <style>
-
+	.register view{
+		margin-top: 30upx;
+		padding: 10upx 0;
+		width: 100%;
+		height: 60upx;
+		line-height: 60upx;
+		background: #fff;
+		border-bottom: 1upx solid #999;
+	}
+	.register view input{
+		padding-left: 20upx;
+		height: 60upx;
+		line-height: 60upx;
+	}
 </style>

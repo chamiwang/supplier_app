@@ -158,13 +158,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _service = _interopRequireDefault(__webpack_require__(/*! ../../service.js */ "../../../../myapp/supplier_app/智云/service.js"));
-var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var mInput = function mInput() {return __webpack_require__.e(/*! import() | components/m-input */ "components/m-input").then(__webpack_require__.bind(null, /*! ../../components/m-input.vue */ "../../../../myapp/supplier_app/智云/components/m-input.vue"));};var _default =
+var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var mInput = function mInput() {return __webpack_require__.e(/*! import() | components/m-input */ "components/m-input").then(__webpack_require__.bind(null, /*! ../../components/m-input.vue */ "../../../../myapp/supplier_app/智云/components/m-input.vue"));};var _default = _defineProperty({
 
 
 
 
 
-{
+
   components: {
     mInput: mInput },
 
@@ -172,38 +172,54 @@ var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.j
     return {
       providerList: [],
       hasProvider: false,
-      account: '',
-      password: '',
+      account: 'qdl@zyc',
+      password: 'zhiyun2017~',
       positionTop: 0,
-      html: '' };
+      html: '',
+      windowHeight: '',
+      tabbar: true };
 
   },
-  computed: (0, _vuex.mapState)(['forcedLogin', 'loginInfo']),
+  onLoad: function onLoad() {var _this = this;
+    uni.getSystemInfo({
+      success: function success(res) {
+        _this.windowHeight = res.windowHeight;
+      } });
+
+    uni.onWindowResize(function (res) {
+      if (res.size.windowHeight < _this.windowHeight) {
+        _this.tabbar = false;
+      } else {
+        _this.tabbar = true;
+      }
+    });
+  },
+  computed: (0, _vuex.mapState)(['forcedLogin', 'loginInfo', 'token', 'userInfo']),
   methods: _objectSpread({},
-  (0, _vuex.mapMutations)(['login']), {
+  (0, _vuex.mapMutations)(['login', 'setToken', 'setUserInfo']), {
     jump: function jump() {
       uni.setStorage({
         key: 'hasLogin',
         data: true });
 
       this.login();
-      uni.switchTab({
+      uni.redirectTo({
         url: '../user/user' });
 
     },
-    jumpTab: function jumpTab(index) {
-      console.log(index, " at pages\\login\\login.vue:95");
-      if (index) {
-        uni.switchTab({
-          url: '../pwd/pwd' });
-
-      } else {
-        uni.switchTab({
-          url: '../main/main' });
-
-      }
-    },
-    initProvider: function initProvider() {var _this = this;
+    // jumpTab(index) {
+    // 	console.log(index)
+    // 	if (index) {
+    // 		uni.switchTab({
+    // 			url: '../pwd/pwd'
+    // 		})
+    // 	} else {
+    // 		uni.switchTab({
+    // 			url: '../main/main'
+    // 		})
+    // 	}
+    // },
+    initProvider: function initProvider() {var _this2 = this;
       var filters = ['weixin', 'qq', 'sinaweibo'];
       uni.getProvider({
         service: 'oauth',
@@ -211,17 +227,17 @@ var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.j
           if (res.provider && res.provider.length) {
             for (var i = 0; i < res.provider.length; i++) {
               if (~filters.indexOf(res.provider[i])) {
-                _this.providerList.push({
+                _this2.providerList.push({
                   value: res.provider[i],
                   image: '../../static/img/' + res.provider[i] + '.png' });
 
               }
             }
-            _this.hasProvider = true;
+            _this2.hasProvider = true;
           }
         },
         fail: function fail(err) {
-          console.error('获取服务供应商失败：' + JSON.stringify(err), " at pages\\login\\login.vue:124");
+          console.error('获取服务供应商失败：' + JSON.stringify(err), " at pages\\login\\login.vue:140");
         } });
 
     },
@@ -232,11 +248,15 @@ var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.j
                                             */
       this.positionTop = uni.getSystemInfoSync().windowHeight - 100;
     },
-    bindLogin: function bindLogin() {var _this2 = this;
+    bindLogin: function bindLogin() {var _this3 = this;
+      uni.showLoading({
+        title: '正在登录',
+        mask: true });
+
       /**
-                                                         * 客户端对账号信息进行一些必要的校验。
-                                                         * 实际开发中，根据业务需要进行处理，这里仅做示例。
-                                                         */
+                        * 客户端对账号信息进行一些必要的校验。
+                        * 实际开发中，根据业务需要进行处理，这里仅做示例。
+                        */
       if (this.account.length < 5) {
         uni.showToast({
           icon: 'none',
@@ -251,54 +271,53 @@ var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.j
 
         return;
       }
-      /**
-         * 下面简单模拟下服务端的处理
-         * 检测用户账号密码是否在已注册的用户列表中
-         * 实际开发中，使用 uni.request 将账号信息发送至服务端，客户端在回调函数中获取结果信息。
-         */
-      var data = {
-        account: this.account,
-        password: this.password };
-
-      var validUser = _service.default.getUsers().some(function (user) {
-        return data.account === user.account && data.password === user.password;
-      });
-      if (validUser) {
-        this.toMain(this.account);
-      } else {
-        uni.showToast({
-          icon: 'none',
-          title: '用户账号或密码不正确' });
-
-      }
 
       this.loginInfo.account = this.account;
       this.loginInfo.password = this.password;
-      var span =
-      // console.log(this.loginInfo);
       uni.request({
         url: 'http://b2btest.zyuncai.com/zyapi/login_check',
         method: 'post',
-        //                     header: {
-        //                         'Content-Type' : 'application/x-www-form-urlencoded',
-        //                         'Access-Control-Allow-Origin' : '*',
-        //                         
-        //                     },
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Access-Control-Allow-Origin': '*' },
+
         data: {
           '_username': this.loginInfo.account,
           '_password': this.loginInfo.password },
 
         dataType: 'json',
         success: function success(res) {
-          _this2.html = res.data;
-          console.log(_this2.html, " at pages\\login\\login.vue:194");
+          var token = res.data.token;
+          _this3.setToken(token);
+          uni.request({
+            url: 'http://webtest.zyuncai.com/admin/company/order/salesorderrecord/list',
+            method: 'get',
+            header: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': ' Bearer ' + _this3.token },
+
+            data: {
+              type: 'company' },
+
+            success: function success(res) {
+              console.log(JSON.stringify(res), " at pages\\login\\login.vue:203");
+              // var info = res.data.user_info
+              _this3.setUserInfo(info);
+              uni.hideLoading();
+              // console.log(this.userInfo);
+              // uni.redirectTo({
+              // 	url: '../user/user'
+              // })
+
+            } });
+
         },
         fail: function fail(err) {
-          console.log(err, " at pages\\login\\login.vue:197");
+          console.log(err, " at pages\\login\\login.vue:216");
         } });
 
     },
-    oauth: function oauth(value) {var _this3 = this;
+    oauth: function oauth(value) {var _this4 = this;
       uni.login({
         provider: value,
         success: function success(res) {
@@ -309,12 +328,12 @@ var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.j
                                                  * 实际开发中，获取用户信息后，需要将信息上报至服务端。
                                                  * 服务端可以用 userInfo.openId 作为用户的唯一标识新增或绑定用户信息。
                                                  */
-              _this3.toMain(infoRes.userInfo.nickName);
+              _this4.toMain(infoRes.userInfo.nickName);
             } });
 
         },
         fail: function fail(err) {
-          console.error('授权登录失败：' + JSON.stringify(err), " at pages\\login\\login.vue:217");
+          console.error('授权登录失败：' + JSON.stringify(err), " at pages\\login\\login.vue:236");
         } });
 
     },
@@ -332,12 +351,18 @@ var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.j
         uni.navigateBack();
       }
 
-    } }),
+    },
+    showTabbar: function showTabbar() {
+      this.tabbar = true;
+    },
+    hideTabbar: function hideTabbar() {
+      this.tabbar = false;
+    } }) }, "onLoad", function onLoad()
 
-  onLoad: function onLoad() {
-    this.initPosition();
-    this.initProvider();
-  } };exports.default = _default;
+{
+  this.initPosition();
+  this.initProvider();
+});exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-app-plus/dist/index.js */ "./node_modules/@dcloudio/uni-app-plus/dist/index.js")["default"]))
 
 /***/ }),

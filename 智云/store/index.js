@@ -11,10 +11,12 @@ const store = new Vuex.Store({
         forcedLogin: false,
         hasLogin: false,
         userName: "",
+		token: 'asdasd',
         loginInfo: {
             account: '',
             password: ''
-        }
+        },
+		userInfo: {}
     },
     mutations: {
         login(state, userName) {
@@ -24,7 +26,13 @@ const store = new Vuex.Store({
         logout(state) {
             state.userName = "";
             state.hasLogin = false;
-        }
+        },
+		setToken(state, token) {
+			state.token = token;
+		},
+		setUserInfo(state, data) {
+			state.userInfo = data
+		}
     }
 })
 

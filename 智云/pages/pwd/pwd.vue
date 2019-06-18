@@ -14,7 +14,7 @@
 			<view>
 				<p class="noPermissions">无权限，即将返回首页</p>
 				<text class="text">对不起，您无此功能操作权限，请联系管理员了解情况</text>
-				<p class="determine">确定 ({{time}}秒)</p>
+				<p class="determine" @tap="jump">确定</p>
 			</view>
 		</view>
     </view>
@@ -59,32 +59,41 @@
         data() {
             return {
                 email: '',
-				time: 5
+				time: 5,
+				isTime: true
             }
         },
 		created() {
-			var time = 5;
-			// var times = setInterval(() => {
-			// 	if (time === 0) {
-			// 		clearInterval(times)
-			// 		return false
-			// 	}
-			// 	time = time - 1
-			// 	this.time = time
-			// 	console.log(this.time)
-			// }, 1000)
-			var that = this;
-			var times = setInterval(function() {
-				if (time === 0) {
-					clearInterval(times)
-					return false
-				}
-				time = time - 1
-				that.time = time
-				console.log(that.time)
-			},1000)
+			// var isTime = true
+			// this.isTime = isTime
+			// var time = 5;
+			// this.jumpTime(time, isTime);
 		},
         methods: {
+			// 权限不够返回首页
+			jump() {
+				this.jumpTime(0, false)
+				uni.switchTab({
+					url: '../main/main'
+				})
+			},
+			jumpTime(time, isTime) {
+				var that = this;
+				var times = setInterval(function() {
+					if (time === 0) {
+						if (isTime) {
+							uni.switchTab({
+								url: '../main/main'
+							})
+						}
+						clearInterval(times)
+						return false
+					}
+					time = time - 1
+					that.time = time
+					console.log(that.time)
+				},1000)
+			},
             findPassword() {
                 /**
                  * 仅做示例
@@ -114,7 +123,7 @@
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		background: rgba(0,0,0,1);
+		background: rgba(0,0,0,.8);
 		z-index: 999;
 	}
 	.bg>view{

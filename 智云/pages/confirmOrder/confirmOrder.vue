@@ -159,9 +159,12 @@
 				</ul>
 			</view>
 			<view class="btn">
-				<text>确认订单</text>
+				<button type="primary" size="mini">确认订单</button>
+				<button type="primary" size="mini">拒绝订单</button>
+				<button type="primary" size="mini">订单发货</button>
+				<!-- <text>确认订单</text>
 				<text>拒绝订单</text>
-				<text>订单发货</text>
+				<text>订单发货</text> -->
 			</view>
 		</view>
 	</view>
@@ -234,6 +237,10 @@
 		flex-direction: row;
 		align-items: center;
 	}
+	.product-list .product .product-left>img{
+		width: 60upx;
+		height: 60upx;
+	}
 	.product-list .product .product-left>text{
 		width: 360upx;
 	}
@@ -246,6 +253,10 @@
 	}
 	.product-list .product .product-right>text{
 		text-align: center;
+	}
+	.product-list .product .product-right>img{
+		width: 60upx;
+		height: 60upx;
 	}
 	
 	.list{
@@ -276,17 +287,17 @@
 		color: #fff;
 		font-size: 32upx;
 	}
-	.btn>text{
-		margin-left: 10upx;
+	.btn>button{
+		/* margin-left: 10upx; */
 		padding: 8upx 20upx;
 	}
-	.btn>text:nth-child(1){
+	.btn>button:nth-child(1){
 		background: #00a65a;
 	}
-	.btn>text:nth-child(2){
+	.btn>button:nth-child(2){
 		background: #dd4b39;
 	}
-	.btn>text:nth-child(3){
+	.btn>button:nth-child(3){
 		background: #ff8d36;
 	}
 </style>

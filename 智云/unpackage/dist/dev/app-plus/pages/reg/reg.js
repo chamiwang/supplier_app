@@ -1,1 +1,2 @@
+setCssToHead([".",[1],"register wx-view{ margin-top: ",[0,30],"; padding: ",[0,10]," 0; width: 100%; height: ",[0,60],"; line-height: ",[0,60],"; background: #fff; border-bottom: ",[0,1]," solid #999; }\n.",[1],"register wx-view wx-input{ padding-left: ",[0,20],"; height: ",[0,60],"; line-height: ",[0,60],"; }\n",],undefined,{path:"./pages/reg/reg.wxss"})();
 document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/reg/reg.wxml') } }));

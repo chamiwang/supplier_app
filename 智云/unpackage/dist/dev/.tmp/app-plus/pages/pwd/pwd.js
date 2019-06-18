@@ -168,23 +168,32 @@ var mInput = function mInput() {return __webpack_require__.e(/*! import() | comp
   // 		},4000)
   // 	}
   // },
-  components: { mInput: mInput }, computed: (0, _vuex.mapState)(['hasLogin']), data: function data() {return { email: '', time: 5 };}, created: function created() {var time = 5; // var times = setInterval(() => {
-    // 	if (time === 0) {
-    // 		clearInterval(times)
-    // 		return false
-    // 	}
-    // 	time = time - 1
-    // 	this.time = time
-    // 	console.log(this.time)
-    // }, 1000)
-    var that = this;var times = setInterval(function () {if (time === 0) {clearInterval(times);return false;
-      }
-      time = time - 1;
-      that.time = time;
-      console.log(that.time, " at pages\\pwd\\pwd.vue:84");
-    }, 1000);
-  },
-  methods: {
+  components: { mInput: mInput }, computed: (0, _vuex.mapState)(['hasLogin']), data: function data() {return { email: '', time: 5, isTime: true };}, created: function created() {// var isTime = true
+    // this.isTime = isTime
+    // var time = 5;
+    // this.jumpTime(time, isTime);
+  }, methods: { // 权限不够返回首页
+    jump: function jump() {this.jumpTime(0, false);uni.switchTab({
+        url: '../main/main' });
+
+    },
+    jumpTime: function jumpTime(time, isTime) {
+      var that = this;
+      var times = setInterval(function () {
+        if (time === 0) {
+          if (isTime) {
+            uni.switchTab({
+              url: '../main/main' });
+
+          }
+          clearInterval(times);
+          return false;
+        }
+        time = time - 1;
+        that.time = time;
+        console.log(that.time, " at pages\\pwd\\pwd.vue:94");
+      }, 1000);
+    },
     findPassword: function findPassword() {
       /**
                                             * 仅做示例

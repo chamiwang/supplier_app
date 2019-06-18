@@ -1,7 +1,15 @@
 <script>
+	import {
+	    mapState,
+	    mapMutations
+	} from 'vuex'
     export default {
         // onLaunch: function() {
-        //     console.log('App Launch');
+        //     if (!this.hasLogin) {
+        //     	uni.redirectTo({
+        //     		url: '/pages/login/login'
+        //     	})
+        //     }
         // },
         // onShow: function() {
         //     console.log('App Show');

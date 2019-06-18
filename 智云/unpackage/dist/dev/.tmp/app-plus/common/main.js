@@ -79,10 +79,18 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");var _default =
+
+
+
 {
   // onLaunch: function() {
-  //     console.log('App Launch');
+  //     if (!this.hasLogin) {
+  //     	uni.redirectTo({
+  //     		url: '/pages/login/login'
+  //     	})
+  //     }
   // },
   // onShow: function() {
   //     console.log('App Show');

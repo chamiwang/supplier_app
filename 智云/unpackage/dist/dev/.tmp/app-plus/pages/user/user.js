@@ -128,29 +128,107 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
 
 
 
 
 {
+  data: function data() {
+    return {
+      disUser: false,
+      tabbar: true };
+
+  },
   onLoad: function onLoad() {
-    if (!this.hasLogin) {
+    // console.log(JSON.stringify(this.userInfo));
+    if (!this.userInfo.name) {
       uni.redirectTo({
         url: '../login/login' });
 
     }
   },
   computed: _objectSpread({},
-  (0, _vuex.mapState)(['hasLogin', 'forcedLogin'])),
+  (0, _vuex.mapState)(['hasLogin', 'forcedLogin', 'userInfo'])),
 
   methods: _objectSpread({},
   (0, _vuex.mapMutations)(['logout']), {
-    // bindLogin() {
-    //     uni.navigateTo({
-    //         url: '../login/login',
-    //     });
-    // },
+    // 切换用户
+    switchUser: function switchUser() {
+      this.disUser = true;
+      uni.hideTabBar();
+    },
+    radioChange: function radioChange(e) {
+      this.disUser = false;
+      uni.showTabBar();
+    },
+    // 登录切换页面
+    jumpTab: function jumpTab(index) {
+      console.log(index, " at pages\\user\\user.vue:121");
+      if (index) {
+        uni.switchTab({
+          url: '../pwd/pwd' });
+
+      } else {
+        uni.switchTab({
+          url: '../main/main' });
+
+      }
+    },
     bindLogout: function bindLogout() {
       this.logout();
       /**
@@ -178,14 +256,14 @@ var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.j
       // });
       uni.showModal({
         title: '确定要退出吗？',
-        content: '这是一个模态弹窗',
+        content: '真的确定要退出吗？',
         success: function success(res) {
           if (res.confirm) {
-            uni.redirectTo({
+            uni.switchTab({
               url: '../login/login' });
 
           } else if (res.cancel) {
-            console.log('用户点击取消', " at pages\\user\\user.vue:88");
+            console.log('用户点击取消', " at pages\\user\\user.vue:166");
           }
         } });
 

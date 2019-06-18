@@ -1,16 +1,15 @@
 {
   "pages": [
-    "pages/confirmOrder/confirmOrder",
     "pages/main/main",
     "pages/login/login",
     "pages/reg/reg",
     "pages/pwd/pwd",
-    "pages/login/login",
+    "pages/user/user",
     "pages/erji/erji",
     "pages/sanji/sanji",
     "pages/sanji1/sanji1",
     "pages/sanji2/sanji2",
-    "pages/user/user"
+    "pages/productDetails/productDetails"
   ],
   "subPackages": [],
   "window": {
@@ -36,7 +35,7 @@
         "selectedIconPath": "static/img/homeHL.png"
       },
       {
-        "pagePath": "pages/user/user",
+        "pagePath": "pages/login/login",
         "text": "我的",
         "iconPath": "static/img/user.png",
         "selectedIconPath": "static/img/userHL.png"

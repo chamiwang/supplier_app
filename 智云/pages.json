@@ -1,16 +1,18 @@
 {
     "pages": [ //pages数组中第一项表示应用启动页,
+		// {
+		// 	"path": "pages/ordersShipment/ordersShipment",
+		// 	"style": {
+		// 		"navigationBarTitleText": "订单发货"
+		// 	}
+		// },
+		// {
+		// 	"path": "pages/confirmOrder/confirmOrder",
+		// 	"style": {
+		// 		"navigationBarTitleText": "确认订单"
+		// 	}
+		// },
 		{
-			"path": "pages/ordersShipment/ordersShipment",
-			"style": {
-				"navigationBarTitleText": "订单发货"
-			}
-		}, {
-			"path": "pages/confirmOrder/confirmOrder",
-			"style": {
-				"navigationBarTitleText": "确认订单"
-			}
-		}, {
             "path": "pages/main/main",
             "style": {
                 "navigationBarTitleText": "登录模板"
@@ -31,7 +33,7 @@
                 "navigationBarTitleText": "找回密码"
             }
         }, {
-            "path": "pages/login/login",
+            "path": "pages/user/user",
             "style": {
                 "navigationBarTitleText": "我的"
             }
@@ -56,11 +58,11 @@
                 "navigationBarTitleText": "三级2"
             }
         }, {
-            "path": "pages/user/user",
-            "style": {
-                "navigationBarTitleText": "my的"
-            }
-        }
+			"path": "pages/productDetails/productDetails",
+			"style": {
+				"navigationBarTitleText": "订单详情"
+			}
+		}
     ],
     "tabBar": {
         "color": "#7a7e83",
@@ -77,7 +79,7 @@
             "iconPath": "static/img/home.png",
             "selectedIconPath": "static/img/homeHL.png"
         }, {
-            "pagePath": "pages/user/user",
+            "pagePath": "pages/login/login",
             "text": "我的",
             "iconPath": "static/img/user.png",
             "selectedIconPath": "static/img/userHL.png"

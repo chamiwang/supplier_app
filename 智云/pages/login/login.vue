@@ -4,23 +4,23 @@
             <img src="/static/img/qq.png" alt="">
 			<p>李冰&emsp;361834094@qq.com</p>
         </view>
-		<view>
-			<view>
-				<text>账号：</text>
-				<input type="text">
+		<view class="input-login">
+			<view class="input-login-account">
+				<!-- <text>账号：</text> -->
+				<input @click="hideTabbar" @focus="hideTabbar" @blur="showTabbar" type="text" v-model="account" placeholder="请输入登录邮箱">
 			</view>
-			<view>
-				<text>密码：</text>
-				<input type="password">
+			<view class="input-login-password">
+				<!-- <text>密码：</text> -->
+				<input @click="hideTabbar" @focus="hideTabbar" @blur="showTabbar" type="password" v-model="password" placeholder="请输入密码">
 			</view>
 		</view>
         <!-- <view class="input-group">
             <view class="input-row border">
-                <text class="title">账号：</text>
+                <text class="title">账号</text>
                 <m-input class="m-input" type="text" clearable focus v-model="account" placeholder="请输入账号"></m-input>
             </view>
             <view class="input-row">
-                <text class="title">密码：</text>
+                <text class="title">密码</text>
                 <m-input type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
             </view>
         </view> -->
@@ -32,7 +32,7 @@
             <text>|</text>
             <navigator url="../pwd/pwd">忘记密码</navigator>
         </view>
-		<view class="tabber">
+		<!-- <view v-if="tabbar" class="tabber">
 			<ul>
 				<li @tap="jumpTab(0)">
 					<img src="/static/img/home.png" alt="">
@@ -47,7 +47,7 @@
 					<text style="color: #0FAEFF;">我的</text>
 				</li>
 			</ul>
-		</view>
+		</view> -->
         <!-- <view class="oauth-row" v-if="hasProvider" v-bind:style="{top: positionTop + 'px'}">
             <view class="oauth-image" v-for="provider in providerList" :key="provider.value">
                 <image :src="provider.image" @tap="oauth(provider.value)"></image>
@@ -72,37 +72,53 @@
             return {
                 providerList: [],
                 hasProvider: false,
-                account: '',
-                password: '',
+                account: 'caigoum@zyc.com',
+                password: 'zhiyun2017~',
                 positionTop: 0,
-                html: ''
+                html: '',
+				windowHeight: '',
+				tabbar: true
             }
         },
-        computed: mapState(['forcedLogin', 'loginInfo']),
+		onLoad() {
+			uni.getSystemInfo({
+				success: (res)=> {
+					this.windowHeight = res.windowHeight;
+				}
+			});
+			uni.onWindowResize((res) => {
+				if(res.size.windowHeight < this.windowHeight){
+					this.tabbar = false
+				}else{
+					this.tabbar = true
+				}
+			})
+		},
+        computed: mapState(['forcedLogin', 'loginInfo', 'token', 'userInfo']),
         methods: {
-			...mapMutations(['login']),
+			...mapMutations(['login', 'setToken', 'setUserInfo']),
 			jump() {
 				uni.setStorage({
 					key: 'hasLogin',
 					data: true
 				})
 				this.login();
-				uni.switchTab({
+				uni.redirectTo({
 					url: '../user/user'
 				})
 			},
-			jumpTab(index) {
-				console.log(index)
-				if (index) {
-					uni.switchTab({
-						url: '../pwd/pwd'
-					})
-				} else {
-					uni.switchTab({
-						url: '../main/main'
-					})
-				}
-			},
+			// jumpTab(index) {
+			// 	console.log(index)
+			// 	if (index) {
+			// 		uni.switchTab({
+			// 			url: '../pwd/pwd'
+			// 		})
+			// 	} else {
+			// 		uni.switchTab({
+			// 			url: '../main/main'
+			// 		})
+			// 	}
+			// },
             initProvider() {
                 const filters = ['weixin', 'qq', 'sinaweibo'];
                 uni.getProvider({
@@ -133,6 +149,10 @@
                 this.positionTop = uni.getSystemInfoSync().windowHeight - 100;
             },
             bindLogin() {
+				uni.showLoading({
+					title: '正在登录',
+					mask: true
+				})
                 /**
                  * 客户端对账号信息进行一些必要的校验。
                  * 实际开发中，根据业务需要进行处理，这里仅做示例。
@@ -151,47 +171,46 @@
                     });
                     return;
                 }
-                /**
-                 * 下面简单模拟下服务端的处理
-                 * 检测用户账号密码是否在已注册的用户列表中
-                 * 实际开发中，使用 uni.request 将账号信息发送至服务端，客户端在回调函数中获取结果信息。
-                 */
-                const data = {
-                    account: this.account,
-                    password: this.password
-                };
-                const validUser = service.getUsers().some(function (user) {
-                    return data.account === user.account && data.password === user.password;
-                });
-                if (validUser) {
-                    this.toMain(this.account);
-                } else {
-                    uni.showToast({
-                        icon: 'none',
-                        title: '用户账号或密码不正确',
-                    });
-                }
                 
                 this.loginInfo.account = this.account;
                 this.loginInfo.password = this.password;
-                var span = 
-                // console.log(this.loginInfo);
                 uni.request({
                     url: 'http://b2btest.zyuncai.com/zyapi/login_check',
                     method: 'post',
-//                     header: {
-//                         'Content-Type' : 'application/x-www-form-urlencoded',
-//                         'Access-Control-Allow-Origin' : '*',
-//                         
-//                     },
+                    header: {
+                        'Content-Type' : 'application/x-www-form-urlencoded',
+                        'Access-Control-Allow-Origin' : '*'
+                    },
                     data: {
                         '_username': this.loginInfo.account,
                         '_password': this.loginInfo.password
                     },
                     dataType: 'json',
                     success: (res) => {
-                        this.html = res.data;
-                        console.log(this.html);
+						var token = res.data.token
+						this.setToken(token)
+						uni.request({
+							url: 'http://b2btest.zyuncai.com/zyapi/index',
+							method: 'get',
+							header: {
+							    'Content-Type':'application/x-www-form-urlencoded',
+								'Authorization':' Bearer '+ this.token
+							},
+							data: {
+							    type: 'company'
+							},
+							success: (res) => {
+								console.log(JSON.stringify(res.data.user_info));
+								var info = res.data.user_info
+								this.setUserInfo(info)
+								uni.hideLoading();
+								// console.log(this.userInfo);
+								uni.redirectTo({
+									url: '../user/user'
+								})
+								
+							}
+						})
                     },
                     fail: (err) => {
                         console.log(err)
@@ -232,7 +251,13 @@
                     uni.navigateBack();
                 }
 
-            }
+            },
+			showTabbar(){
+				this.tabbar = true;
+			},
+			hideTabbar(){
+				this.tabbar = false;
+			}
         },
         onLoad() {
             this.initPosition();
@@ -257,6 +282,29 @@
 		width: 200upx;
 		height: 200upx;
 	}
+	
+	.input-login{
+		margin-top: 60upx;
+		/* margin-left: 10%; */
+		width: 100%;
+	}
+	.input-login>view{
+		padding: 16upx 0;
+		width: 100%;
+		background: #fff;
+		border-bottom: 1upx solid #999;
+	}
+	.input-login .input-login-account{
+		margin-bottom: 30upx;
+	}
+	.input-login .input-login-account>input{
+		padding-left: 40upx;
+	}
+	.input-login .input-login-password>input{
+		padding-left: 40upx;
+	}
+	
+	
     .action-row {
         display: flex;
         flex-direction: row;
@@ -293,8 +341,8 @@
         margin: 20upx;
     }
 	
-	.tabber{
-		position: absolute;
+	/* .tabber{
+		position: fixed;
 		bottom: 0;
 		left: 0;
 		width: 100%;
@@ -320,5 +368,5 @@
 	.tabber>ul>li>img{
 		width: 50upx;
 		height: 50upx;
-	}
+	} */
 </style>
