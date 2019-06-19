@@ -289,8 +289,9 @@ var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.j
         success: function success(res) {
           var token = res.data.token;
           _this3.setToken(token);
+          console.log(_this3.token, " at pages\\login\\login.vue:192");
           uni.request({
-            url: 'http://webtest.zyuncai.com/admin/company/order/salesorderrecord/list',
+            url: 'http://webtest.zyuncai.com/zyapi/supplier/salesorderrecord/list',
             method: 'get',
             header: {
               'Content-Type': 'application/x-www-form-urlencoded',
@@ -300,11 +301,11 @@ var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.j
               type: 'company' },
 
             success: function success(res) {
-              console.log(JSON.stringify(res), " at pages\\login\\login.vue:203");
+              console.log(JSON.stringify(res.data), " at pages\\login\\login.vue:204");
               // var info = res.data.user_info
-              _this3.setUserInfo(info);
+              // this.setUserInfo(info)
               uni.hideLoading();
-              // console.log(this.userInfo);
+              // // console.log(this.userInfo);
               // uni.redirectTo({
               // 	url: '../user/user'
               // })
@@ -313,7 +314,7 @@ var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.j
 
         },
         fail: function fail(err) {
-          console.log(err, " at pages\\login\\login.vue:216");
+          console.log(err, " at pages\\login\\login.vue:217");
         } });
 
     },
@@ -333,7 +334,7 @@ var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.j
 
         },
         fail: function fail(err) {
-          console.error('授权登录失败：' + JSON.stringify(err), " at pages\\login\\login.vue:236");
+          console.error('授权登录失败：' + JSON.stringify(err), " at pages\\login\\login.vue:237");
         } });
 
     },

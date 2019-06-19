@@ -72,7 +72,7 @@
             return {
                 providerList: [],
                 hasProvider: false,
-                account: 'caigoum@zyc.com',
+                account: 'qdl@zyc',
                 password: 'zhiyun2017~',
                 positionTop: 0,
                 html: '',
@@ -189,8 +189,9 @@
                     success: (res) => {
 						var token = res.data.token
 						this.setToken(token)
+						console.log(this.token)
 						uni.request({
-							url: 'http://b2btest.zyuncai.com/zyapi/index',
+							url: 'http://webtest.zyuncai.com/zyapi/supplier/salesorderrecord/list',
 							method: 'get',
 							header: {
 							    'Content-Type':'application/x-www-form-urlencoded',
@@ -200,14 +201,14 @@
 							    type: 'company'
 							},
 							success: (res) => {
-								console.log(JSON.stringify(res.data.user_info));
-								var info = res.data.user_info
-								this.setUserInfo(info)
+								console.log(JSON.stringify(res.data));
+								// var info = res.data.user_info
+								// this.setUserInfo(info)
 								uni.hideLoading();
-								// console.log(this.userInfo);
-								uni.redirectTo({
-									url: '../user/user'
-								})
+								// // console.log(this.userInfo);
+								// uni.redirectTo({
+								// 	url: '../user/user'
+								// })
 								
 							}
 						})
